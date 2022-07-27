@@ -60,16 +60,16 @@ Casa_Tag=""
 Show() {
     # OK
     if (($1 == 0)); then
-        echo "- ${aCOLOUR[2]}[$COLOUR_RESET${aCOLOUR[0]}  OK  $COLOUR_RESET${aCOLOUR[2]}]$COLOUR_RESET $2" >> /var/log/casaos/upgrade.log
+        echo "- OK $2" >> /var/log/casaos/upgrade.log
     # FAILED
     elif (($1 == 1)); then
-        echo "- ${aCOLOUR[2]}[$COLOUR_RESET${aCOLOUR[3]}FAILED$COLOUR_RESET${aCOLOUR[2]}]$COLOUR_RESET $2" >> /var/log/casaos/upgrade.log
+        echo "- FAILED $2" >> /var/log/casaos/upgrade.log
     # INFO
     elif (($1 == 2)); then
-        echo "- ${aCOLOUR[2]}[$COLOUR_RESET${aCOLOUR[0]} INFO $COLOUR_RESET${aCOLOUR[2]}]$COLOUR_RESET $2" >> /var/log/casaos/upgrade.log
+        echo "- INFO $2" >> /var/log/casaos/upgrade.log
     # NOTICE
     elif (($1 == 3)); then
-        echo "- ${aCOLOUR[2]}[$COLOUR_RESET${aCOLOUR[4]}NOTICE$COLOUR_RESET${aCOLOUR[2]}]$COLOUR_RESET $2" >> /var/log/casaos/upgrade.log
+        echo "- NOTICE $2" >> /var/log/casaos/upgrade.log
     fi
 }
 
