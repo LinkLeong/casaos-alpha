@@ -243,6 +243,8 @@ Install_Addons
 # Step 9: Install CasaOS
 Install_CasaOS
 
+Clean_Temp_Files
+
 # Step 11: Start CasaOS
 Start_CasaOS
-Clean_Temp_Files
+
