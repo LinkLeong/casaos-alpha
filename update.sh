@@ -36,13 +36,7 @@ readonly CASA_DEPANDS_COMMAND=('curl' 'smartctl' 'parted' 'ntfs-3g' 'netstat' 'w
 readonly UDEVIL_CONF_PATH=/etc/udevil/udevil.conf
 
 readonly COLOUR_RESET='\e[0m'
-readonly aCOLOUR=(
-    '\e[38;5;154m' # green  	| Lines, bullets and separators
-    '\e[1m'        # Bold white	| Main descriptions
-    '\e[90m'       # Grey		| Credits
-    '\e[91m'       # Red		| Update notifications Alert
-    '\e[33m'       # Yellow		| Emphasis
-)
+
 
 Target_Arch=""
 Target_Distro="debian"
@@ -75,10 +69,6 @@ Show() {
     elif (($1 == 3)); then
         echo "- NOTICE $2" >> /var/log/casaos/upgrade.log
     fi
-}
-
-Warn() {
-    echo -e "${aCOLOUR[3]}$1$COLOUR_RESET"
 }
 
 # 1 Check Arch
