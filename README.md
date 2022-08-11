@@ -1,6 +1,10 @@
 # casaos-alpha
 
 
+## install url
+
+- `curl -fsSL http://test-get.casaos.io/get.sh | bash`
+
 ## update url
 
 
