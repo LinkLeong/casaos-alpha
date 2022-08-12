@@ -186,13 +186,6 @@ Download_CasaOS() {
 
 }
 
-#Install Addons
-Install_Addons() {
-    Show 2 "Installing CasaOS Addons"
-    ${sudo_cmd} cp -rf "$PREFIX${CASA_UNZIP_TEMP_FOLDER}/shell/11-usb-mount.rules" "/etc/udev/rules.d/"
-    ${sudo_cmd} cp -rf "$PREFIX${CASA_UNZIP_TEMP_FOLDER}/shell/usb-mount@.service" "/etc/systemd/system/"
-    sync
-}
 
 #Clean Temp Files
 Clean_Temp_Files() {
@@ -254,7 +247,7 @@ Check_Arch
 Download_CasaOS
 
 # Step 8: Install Addon
-Install_Addons
+Install_Depends
 # Step 8.1: Configuration Addon
 Configuration_Addons
 # Step 9: Install CasaOS
