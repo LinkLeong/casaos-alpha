@@ -406,7 +406,7 @@ DownloadAndInstallCasaOS() {
 
         for PACKAGE_FILE in linux-*-casaos-*.tar.gz; do
             Show 2 "Extracting ${PACKAGE_FILE}..."
-            tar zxf "${PACKAGE_FILE}" || Show 1 "Failed to extract package"
+            tar zxvf "${PACKAGE_FILE}" || Show 1 "Failed to extract package"
         done
 
         BUILD_DIR=$(realpath -e "${TMP_DIR}"/build || Show 1 "Failed to find build directory")
