@@ -87,7 +87,7 @@ readonly PASSED="${aCOLOUR[0]}PASSED$COLOUR_RESET"
 TARGET_ARCH=""
 TARGET_DISTRO="debian"
 TARGET_OS="linux"
-CASA_TAG="v0.3.6-alpha1"
+CASA_TAG="v0.3.6-alpha3"
 TMP_ROOT=/tmp/casaos-installer
 
 
