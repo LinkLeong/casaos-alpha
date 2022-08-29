@@ -39,7 +39,7 @@ echo '
 readonly MINIMUM_DISK_SIZE_GB="5"
 readonly MINIMUM_MEMORY="400"
 readonly CASA_PATH=/casaOS/server
-readonly CASA_DEPANDS="curl smartmontools parted"
+readonly CASA_DEPANDS="curl smartmontools parted ntfs-3g"
 
 readonly physical_memory=$(LC_ALL=C free -m | awk '/Mem:/ { print $2 }')
 readonly disk_size_bytes=$(LC_ALL=C df -P / | tail -n 1 | awk '{print $4}')
@@ -194,6 +194,12 @@ install_depends() {
             $sudo_cmd dnf install $packagesNeeded
         elif [ -x "$(command -v zypper)" ]; then
             $sudo_cmd zypper install $packagesNeeded
+        elif [ -x "$(command -v yum)" ]; then
+            $sudo_cmd yum install $packagesNeeded
+        elif [ -x "$(command -v pacman)" ]; then
+            $sudo_cmd pacman -S $packagesNeeded
+        elif [ -x "$(command -v paru)" ]; then
+            $sudo_cmd paru -S $packagesNeeded
         else
             show 1 "Package manager not found. You must manually install: $packagesNeeded"
         fi
