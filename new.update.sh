@@ -410,7 +410,7 @@ DownloadAndInstallCasaOS() {
 
         for PACKAGE_FILE in linux-*-casaos-*.tar.gz; do
             Show 2 "Extracting ${PACKAGE_FILE}..."
-            tar zxvf "${PACKAGE_FILE}" || Show 1 "Failed to extract package"
+            tar zxvf "${PACKAGE_FILE}" >> /dev/null || Show 1 "Failed to extract package"
         done
 
         BUILD_DIR=$(realpath -e "${TMP_DIR}"/build || Show 1 "Failed to find build directory")
@@ -444,7 +444,7 @@ DownloadAndInstallCasaOS() {
     
     find "${SYSROOT_DIR}" -type f | cut -c ${#SYSROOT_DIR}- | cut -c 2- | tee "${MANIFEST_FILE}" || Show 1 "Failed to create manifest file"
 
-    cp -rv "${SYSROOT_DIR}"/* / || Show 1 "Failed to install CasaOS"
+    cp -rv "${SYSROOT_DIR}"/* / >> /dev/null || Show 1 "Failed to install CasaOS"
 
     SETUP_SCRIPT_DIR=$(realpath -e "${BUILD_DIR}"/scripts/setup/script.d || Show 1 "Failed to find setup script directory")
 
