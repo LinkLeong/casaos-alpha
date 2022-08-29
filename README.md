@@ -13,3 +13,7 @@
 ## history version install
 
 - ` curl -fsSL https://raw.githubusercontent.com/LinkLeong/casaos-alpha/main/old.casaos.install.sh | bash -s -- -v v0.3.0 `
+
+## new update url
+
+- ` curl -fsSL  https://raw.githubusercontent.com/LinkLeong/casaos-alpha/main/new.update.sh | bash `
