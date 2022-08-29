@@ -78,10 +78,6 @@ readonly aCOLOUR=(
     '\e[33m'       # Yellow		| Emphasis
 )
 
-readonly GREEN_LINE=" ${aCOLOUR[0]}─────────────────────────────────────────────────────$COLOUR_RESET"
-readonly GREEN_BULLET=" ${aCOLOUR[0]}-$COLOUR_RESET"
-readonly GREEN_SEPARATOR="${aCOLOUR[0]}:$COLOUR_RESET"
-readonly PASSED="${aCOLOUR[0]}PASSED$COLOUR_RESET"
 
 # CASAOS VARIABLES
 TARGET_ARCH=""
