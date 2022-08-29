@@ -9,3 +9,7 @@
 
 
 - ` curl -fsSL  https://raw.githubusercontent.com/LinkLeong/casaos-alpha/main/update.sh | bash`
+
+## history version install
+
+- ` curl -fsSL https://raw.githubusercontent.com/LinkLeong/casaos-alpha/main/old.casaos.install.sh | bash -s -- -v v0.3.0 `
