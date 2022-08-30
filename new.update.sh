@@ -406,7 +406,7 @@ DownloadAndInstallCasaOS() {
 
         for PACKAGE_FILE in linux-*-casaos-*.tar.gz; do
             Show 2 "Extracting ${PACKAGE_FILE}..."
-            tar zxvf "${PACKAGE_FILE}" || Show 1 "Failed to extract package"
+            tar zxf "${PACKAGE_FILE}" || Show 1 "Failed to extract package"
         done
 
         BUILD_DIR=$(realpath -e "${TMP_DIR}"/build || Show 1 "Failed to find build directory")
@@ -446,9 +446,7 @@ DownloadAndInstallCasaOS() {
 
     for SETUP_SCRIPT in "${SETUP_SCRIPT_DIR}"/*.sh; do
         Show 2 "Running ${SETUP_SCRIPT}..."
-        GreyStart
         bash "${SETUP_SCRIPT}" || Show 1 "Failed to run setup script"
-        ColorReset
     done
     ## Special markings
     Show 0 "CasaOS upgrade successfully"
