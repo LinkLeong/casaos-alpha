@@ -83,7 +83,7 @@ readonly aCOLOUR=(
 TARGET_ARCH=""
 TARGET_DISTRO="debian"
 TARGET_OS="linux"
-CASA_TAG="v0.3.6-alpha4"
+CASA_TAG="v0.3.6-alpha5"
 TMP_ROOT=/tmp/casaos-installer
 
 
