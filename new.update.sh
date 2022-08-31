@@ -107,7 +107,7 @@ onCtrlC() {
 upgradePath="/var/log/casaos/"
 upgradeFile="/var/log/casaos/upgrade.log"
 
-if [ ! -d "$upgradePath"]; then
+if [ ! -d "$upgradePath" ]; then
     mkdir "$upgradePath"
 fi
 
