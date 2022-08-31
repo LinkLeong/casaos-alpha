@@ -490,7 +490,16 @@ while getopts ":v:p:h" arg; do
     esac
 done
 
+upgradePath="/var/log/casaos/"
+upgradeFile="/var/log/casaos/upgrade.log"
 
+if [ ! -d "$upgradePath"]; then
+    mkdir "$upgradePath"
+fi
+
+if [ ! -f "$upgradeFile" ]; then
+    touch "$upgradeFile"
+fi
 
 # Step 1：Check ARCH
 Check_Arch
