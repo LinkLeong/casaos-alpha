@@ -60,7 +60,8 @@ readonly UNAME_M="$(uname -m)"
 readonly UNAME_U="$(uname -s)"
 readonly NET_GETTER="curl -fsSLk"
 
-readonly CASA_CONF_PATH=/etc/casaos/casaos.conf
+readonly CASA_CONF_PATH=/etc/casaos/
+readonly CASA_CONF_PATH_FILE=/etc/casaos/casaos.conf
 readonly CASA_USER_CONF_PATH=/var/lib/casaos/conf/
 readonly CASA_DB_PATH=/var/lib/casaos/db/
 
@@ -182,7 +183,11 @@ Check_Exist() {
     ${sudo_cmd} rm -rf /lib/systemd/system/casaos.service
 
     if [[ -f "/casaOS/server/conf/conf.ini" ]]; then
-        ${sudo_cmd} cp -rf /casaOS/server/conf/conf.ini ${CASA_CONF_PATH}
+    	${sudo_cmd} mkdir -p ${CASA_CONF_PATH}
+     	${sudo_cmd} mkdir -p ${CASA_USER_CONF_PATH}
+  	${sudo_cmd} mkdir -p ${CASA_DB_PATH}
+	
+        ${sudo_cmd} cp -rf /casaOS/server/conf/conf.ini ${CASA_CONF_PATH_FILE}
         ${sudo_cmd} cp -rf /casaOS/server/conf/*.json ${CASA_USER_CONF_PATH}
     fi
 
