@@ -184,11 +184,16 @@ Check_Exist() {
 
     if [[ -f "/casaOS/server/conf/conf.ini" ]]; then
     	${sudo_cmd} mkdir -p ${CASA_CONF_PATH}
-     	${sudo_cmd} mkdir -p ${CASA_USER_CONF_PATH}
+     	
   	${sudo_cmd} mkdir -p ${CASA_DB_PATH}
 	
         ${sudo_cmd} cp -rf /casaOS/server/conf/conf.ini ${CASA_CONF_PATH_FILE}
-        ${sudo_cmd} cp -rf /casaOS/server/conf/*.json ${CASA_USER_CONF_PATH}
+       
+    fi
+    files=$(ls /casaOS/server/conf/*.json 2> /dev/null | wc -l)
+    if [ "$files" != "0" ] ;then
+    	     ${sudo_cmd} mkdir -p ${CASA_USER_CONF_PATH}
+	     ${sudo_cmd} cp -rf /casaOS/server/conf/*.json ${CASA_USER_CONF_PATH}
     fi
 
     if [[ -d "/casaOS/server/db" ]]; then
