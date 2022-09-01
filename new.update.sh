@@ -171,6 +171,27 @@ exist_file() {
 # FUNCTIONS                                                                   #
 ###############################################################################
 
+Check_Exist() {
+  
+    Show 2 "Start cleaning up the old version."
+    
+    ${sudo_cmd} rm -rf /usr/lib/systemd/system/casaos.service
+    
+    ${sudo_cmd} rm -rf /lib/systemd/system/casaos.service
+
+    if [[ -f "/casaOS/server/conf/conf.ini" ]]; then
+        ${sudo_cmd} cp -rf /casaOS/server/conf/conf.ini ${CASA_CONF_PATH}
+        ${sudo_cmd} cp -rf /casaOS/server/conf/*.json ${CASA_USER_CONF_PATH}
+    fi
+
+    if [[ -d "/casaOS/server/db" ]]; then
+        ${sudo_cmd} cp -rf /casaOS/server/db/* ${CASA_DB_PATH}
+    fi
+
+    Show 0 "Clearance completed."
+
+}
+
 # 1 Check Arch
 Check_Arch() {
     case $UNAME_M in
@@ -501,6 +522,8 @@ while getopts ":v:p:h" arg; do
         ;;
     esac
 done
+
+Check_Exist
 
 # Step 1：Check ARCH
 Check_Arch
