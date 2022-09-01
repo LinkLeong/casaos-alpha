@@ -60,7 +60,7 @@ readonly UNAME_M="$(uname -m)"
 readonly UNAME_U="$(uname -s)"
 readonly NET_GETTER="curl -fsSLk"
 
-readonly CASA_CONF_PATH=/etc/casaos/gateway.ini
+readonly CASA_CONF_PATH=/etc/casaos/casaos.conf
 
 readonly CASA_VERSION_URL="https://api.casaos.io/casaos-api/version"
 
@@ -299,21 +299,6 @@ Check_Port() {
         echo "0"
     else
         echo "1"
-    fi
-}
-
-# Get an available port
-Get_Port() {
-    CurrentPort=$(${sudo_cmd} cat ${CASA_CONF_PATH} | grep HttpPort | awk '{print $3}')
-    if [[ $CurrentPort == $Port ]]; then
-        for PORT in {80..65536}; do
-            if [[ $(Check_Port $PORT) == 0 ]]; then
-                Port=$PORT
-                break
-            fi
-        done
-    else
-        Port=$CurrentPort
     fi
 }
 
