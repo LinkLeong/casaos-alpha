@@ -62,6 +62,7 @@ readonly NET_GETTER="curl -fsSLk"
 
 readonly CASA_CONF_PATH=/etc/casaos/casaos.conf
 readonly CASA_USER_CONF_PATH=/var/lib/casaos/conf/
+readonly CASA_DB_PATH=/var/lib/casaos/db/
 
 readonly CASA_VERSION_URL="https://api.casaos.io/casaos-api/version"
 
