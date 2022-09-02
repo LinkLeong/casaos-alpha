@@ -86,7 +86,7 @@ readonly aCOLOUR=(
 TARGET_ARCH=""
 TARGET_DISTRO="debian"
 TARGET_OS="linux"
-CASA_TAG="v0.3.6-alpha6"
+CASA_TAG="v0.3.6"
 TMP_ROOT=/tmp/casaos-installer
 
 
@@ -223,10 +223,10 @@ Check_Arch() {
     esac
     Show 0 "Your hardware architecture is : $UNAME_M"
     CASA_PACKAGES=(
-    "https://github.com/LinkLeong/casaos-alpha/releases/download/v0.3.6/linux-${TARGET_ARCH}-casaos-v0.3.6.tar.gz"
+    "https://github.com/LinkLeong/casaos-alpha/releases/download/${CASA_TAG}/linux-${TARGET_ARCH}-casaos-${CASA_TAG}.tar.gz"
         "https://github.com/IceWhaleTech/CasaOS-Gateway/releases/download/${CASA_TAG}/linux-${TARGET_ARCH}-casaos-gateway-${CASA_TAG}.tar.gz"
-        "https://github.com/IceWhaleTech/CasaOS-UserService/releases/download/v0.3.6-alpha7/linux-${TARGET_ARCH}-casaos-user-service-v0.3.6-alpha7.tar.gz"
-	"https://github.com/zhanghengxin/CasaOS-UI/releases/download/v0.3.6-alpha/linux-all-casaos-v0.3.6-alpha.tar.gz"
+        "https://github.com/IceWhaleTech/CasaOS-UserService/releases/download/${CASA_TAG}/linux-${TARGET_ARCH}-casaos-user-service-${CASA_TAG}.tar.gz"
+	"https://github.com/zhanghengxin/CasaOS-UI/releases/download/${CASA_TAG}/linux-all-casaos-${CASA_TAG}.tar.gz"
 )
 }
 
