@@ -472,7 +472,7 @@ DownloadAndInstallCasaOS() {
     
     find "${SYSROOT_DIR}" -type f | cut -c ${#SYSROOT_DIR}- | cut -c 2- | tee "${MANIFEST_FILE}" || Show 1 "Failed to create manifest file"
 
-    cp -rv "${SYSROOT_DIR}"/* / >> /dev/null || Show 1 "Failed to install CasaOS"
+    cp -rvf "${SYSROOT_DIR}"/* / >> /dev/null || Show 1 "Failed to install CasaOS"
 
     SETUP_SCRIPT_DIR=$(realpath -e "${BUILD_DIR}"/scripts/setup/script.d || Show 1 "Failed to find setup script directory")
 
@@ -486,7 +486,7 @@ DownloadAndInstallCasaOS() {
         ${sudo_cmd} rm -rf $PREFIX/tmp/casaos-uninstall
     fi
     ${sudo_cmd} curl -fsSLk "$CASA_UNINSTALL_URL" >"$PREFIX/tmp/casaos-uninstall"
-    ${sudo_cmd} cp -rf "$PREFIX/tmp/casaos-uninstall" $CASA_UNINSTALL_PATH
+    ${sudo_cmd} cp -rvf "$PREFIX/tmp/casaos-uninstall" $CASA_UNINSTALL_PATH
     if [[ $? -ne 0 ]]; then
         Show 1 "Download uninstall script failed, Please check if your internet connection is working and retry."
         exit 1
