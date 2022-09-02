@@ -66,6 +66,8 @@ readonly CASA_USER_CONF_PATH=/var/lib/casaos/conf/
 readonly CASA_DB_PATH=/var/lib/casaos/db/
 
 readonly CASA_VERSION_URL="https://api.casaos.io/casaos-api/version"
+readonly CASA_UNINSTALL_URL="https://raw.githubusercontent.com/IceWhaleTech/get/main/uninstall.sh"
+readonly CASA_UNINSTALL_PATH=/usr/bin/casaos-uninstall
 
 # REQUIREMENTS CONF PATH
 # Udevil
@@ -478,6 +480,19 @@ DownloadAndInstallCasaOS() {
         Show 2 "Running ${SETUP_SCRIPT}..."
         bash "${SETUP_SCRIPT}" || Show 1 "Failed to run setup script"
     done
+    
+    #Download Uninstall Script
+    if [[ -f $PREFIX/tmp/casaos-uninstall ]]; then
+        ${sudo_cmd} rm -rf $PREFIX/tmp/casaos-uninstall
+    fi
+    ${sudo_cmd} curl -fsSLk "$CASA_UNINSTALL_URL" >"$PREFIX/tmp/casaos-uninstall"
+    ${sudo_cmd} cp -rf "$PREFIX/tmp/casaos-uninstall" $CASA_UNINSTALL_PATH
+    if [[ $? -ne 0 ]]; then
+        Show 1 "Download uninstall script failed, Please check if your internet connection is working and retry."
+        exit 1
+    fi
+    ${sudo_cmd} chmod +x $CASA_UNINSTALL_PATH
+    
     ## Special markings
     Show 0 "CasaOS upgrade successfully"
    for SERVICE in "${CASA_SERVICES[@]}"; do
