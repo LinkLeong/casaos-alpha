@@ -108,11 +108,11 @@ upgradePath="/var/log/casaos/"
 upgradeFile="/var/log/casaos/upgrade.log"
 
 if [ ! -d "$upgradePath" ]; then
-    mkdir "$upgradePath"
+    ${sudo_cmd} mkdir "$upgradePath"
 fi
 
 if [ ! -f "$upgradeFile" ]; then
-    touch "$upgradeFile"
+    ${sudo_cmd} touch "$upgradeFile"
 fi
 
 ###############################################################################
@@ -389,7 +389,7 @@ DownloadAndInstallCasaOS() {
 
     if [ -z "${BUILD_DIR}" ]; then
 
-        mkdir -p ${TMP_ROOT} || Show 1 "Failed to create temporary directory"
+        ${sudo_cmd} mkdir -p ${TMP_ROOT} || Show 1 "Failed to create temporary directory"
         TMP_DIR=$(mktemp -d -p ${TMP_ROOT} || Show 1 "Failed to create temporary directory")
 
         pushd "${TMP_DIR}"
@@ -397,13 +397,13 @@ DownloadAndInstallCasaOS() {
         for PACKAGE in "${CASA_PACKAGES[@]}"; do
             Show 2 "Downloading ${PACKAGE}..."
           
-            curl -sLO "${PACKAGE}" || Show 1 "Failed to download package"
+            ${sudo_cmd} curl -sLO "${PACKAGE}" || Show 1 "Failed to download package"
             
         done
 
         for PACKAGE_FILE in linux-*-casaos-*.tar.gz; do
             Show 2 "Extracting ${PACKAGE_FILE}..."
-            tar zxf "${PACKAGE_FILE}" || Show 1 "Failed to extract package"
+            ${sudo_cmd} tar zxf "${PACKAGE_FILE}" || Show 1 "Failed to extract package"
         done
 
         BUILD_DIR=$(realpath -e "${TMP_DIR}"/build || Show 1 "Failed to find build directory")
@@ -432,12 +432,12 @@ DownloadAndInstallCasaOS() {
 
     # Generate manifest for uninstallation
     MANIFEST_FILE=${BUILD_DIR}/sysroot/var/lib/casaos/manifest
-    touch "${MANIFEST_FILE}" || Show 1 "Failed to create manifest file"
+    ${sudo_cmd} touch "${MANIFEST_FILE}" || Show 1 "Failed to create manifest file"
 
     
     find "${SYSROOT_DIR}" -type f | cut -c ${#SYSROOT_DIR}- | cut -c 2- | tee "${MANIFEST_FILE}" || Show 1 "Failed to create manifest file"
 
-    cp -rvf "${SYSROOT_DIR}"/* / >> /dev/null || Show 1 "Failed to install CasaOS"
+    ${sudo_cmd} cp -rvf "${SYSROOT_DIR}"/* / >> /dev/null || Show 1 "Failed to install CasaOS"
 
     SETUP_SCRIPT_DIR=$(realpath -e "${BUILD_DIR}"/scripts/setup/script.d || Show 1 "Failed to find setup script directory")
 
