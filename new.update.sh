@@ -60,11 +60,6 @@ readonly UNAME_M="$(uname -m)"
 readonly UNAME_U="$(uname -s)"
 readonly NET_GETTER="curl -fsSLk"
 
-readonly CASA_CONF_PATH=/etc/casaos/
-readonly CASA_CONF_PATH_FILE=/etc/casaos/casaos.conf
-readonly CASA_USER_CONF_PATH=/var/lib/casaos/conf/
-readonly CASA_DB_PATH=/var/lib/casaos/db/
-
 readonly CASA_VERSION_URL="https://api.casaos.io/casaos-api/version"
 readonly CASA_UNINSTALL_URL="https://raw.githubusercontent.com/IceWhaleTech/get/main/uninstall.sh"
 readonly CASA_UNINSTALL_PATH=/usr/bin/casaos-uninstall
