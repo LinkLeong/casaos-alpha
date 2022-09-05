@@ -423,7 +423,7 @@ DownloadAndInstallCasaOS() {
     for MIGRATION_SCRIPT in "${MIGRATION_SCRIPT_DIR}"/*.sh; do
         Show 2 "Running ${MIGRATION_SCRIPT}..."
 
-        bash "${MIGRATION_SCRIPT}" || Show 1 "Failed to run migration script"
+        ${sudo_cmd} bash "${MIGRATION_SCRIPT}" || Show 1 "Failed to run migration script"
 
     done
 
@@ -443,7 +443,7 @@ DownloadAndInstallCasaOS() {
 
     for SETUP_SCRIPT in "${SETUP_SCRIPT_DIR}"/*.sh; do
         Show 2 "Running ${SETUP_SCRIPT}..."
-        bash "${SETUP_SCRIPT}" || Show 1 "Failed to run setup script"
+        ${sudo_cmd} bash "${SETUP_SCRIPT}" || Show 1 "Failed to run setup script"
     done
     
     #Download Uninstall Script
