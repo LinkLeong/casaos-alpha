@@ -137,6 +137,7 @@ Show() {
     # FAILED
     elif (($1 == 1)); then
      	echo -e "- FAILED $2" | ${sudo_cmd} tee -a /var/log/casaos/upgrade.log
+	exit 1
     # INFO
     elif (($1 == 2)); then
     	echo -e "- INFO $2" | ${sudo_cmd} tee -a /var/log/casaos/upgrade.log
