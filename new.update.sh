@@ -392,7 +392,7 @@ DownloadAndInstallCasaOS() {
         ${sudo_cmd} mkdir -p ${TMP_ROOT} || Show 1 "Failed to create temporary directory"
         TMP_DIR=$(mktemp -d -p ${TMP_ROOT} || Show 1 "Failed to create temporary directory")
 
-        ${sudo_cmd} pushd "${TMP_DIR}"
+        ${sudo_cmd} bash pushd "${TMP_DIR}"
 
         for PACKAGE in "${CASA_PACKAGES[@]}"; do
             Show 2 "Downloading ${PACKAGE}..."
