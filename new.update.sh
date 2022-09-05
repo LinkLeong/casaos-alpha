@@ -463,7 +463,7 @@ DownloadAndInstallCasaOS() {
    for SERVICE in "${CASA_SERVICES[@]}"; do
         Show 2 "restart ${SERVICE}..."
 
-        systemctl restart "${SERVICE}" || Show 3 "Service ${SERVICE} does not exist."
+        ${sudo_cmd} systemctl restart "${SERVICE}" || Show 3 "Service ${SERVICE} does not exist."
 
     done
 
