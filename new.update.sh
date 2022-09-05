@@ -133,16 +133,16 @@ fi
 Show() {
     # OK
     if (($1 == 0)); then
-        ${sudo_cmd} echo -e "- OK $2" >> /var/log/casaos/upgrade.log
+    	echo -e "- OK $2" |${sudo_cmd} tee -a /var/log/casaos/upgrade.log
     # FAILED
     elif (($1 == 1)); then
-        ${sudo_cmd} echo -e "- FAILED $2" >> /var/log/casaos/upgrade.log
+     	echo -e "- FAILED $2" |${sudo_cmd} tee -a /var/log/casaos/upgrade.log
     # INFO
     elif (($1 == 2)); then
-        ${sudo_cmd} echo -e "- INFO $2" >> /var/log/casaos/upgrade.log
+    	echo -e "- INFO $2" |${sudo_cmd} tee -a /var/log/casaos/upgrade.log
     # NOTICE
     elif (($1 == 3)); then
-        ${sudo_cmd} echo -e "- NOTICE $2" >> /var/log/casaos/upgrade.log
+    	echo -e "- NOTICE $2" |${sudo_cmd} tee -a /var/log/casaos/upgrade.log
     fi
 }
 
