@@ -93,8 +93,8 @@ TMP_ROOT=/tmp/casaos-installer
 
 CASA_SERVICES=(
     "casaos-gateway.service"
-    "casaos.service"
     "casaos-user-service.service"
+    "casaos.service"
 )
 
 trap 'onCtrlC' INT
