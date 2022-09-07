@@ -104,7 +104,7 @@ onCtrlC() {
 }
 
 
-upgradePath="/var/log/casaos/"
+upgradePath="/var/log/casaos"
 upgradeFile="/var/log/casaos/upgrade.log"
 
 if [ ! -d "$upgradePath" ]; then
