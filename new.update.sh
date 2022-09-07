@@ -108,7 +108,7 @@ upgradePath="/var/log/casaos"
 upgradeFile="/var/log/casaos/upgrade.log"
 
 if [ ! -d "$upgradePath" ]; then
-    ${sudo_cmd} mkdir "$upgradePath"
+    ${sudo_cmd} mkdir -p "$upgradePath"
 fi
 
 if [ ! -f "$upgradeFile" ]; then
