@@ -107,6 +107,10 @@ onCtrlC() {
 upgradePath="/var/log/casaos"
 upgradeFile="/var/log/casaos/upgrade.log"
 
+if [ -f "$upgradePath" ]; then
+    ${sudo_cmd} rm "$upgradePath"
+fi
+
 if [ ! -d "$upgradePath" ]; then
     ${sudo_cmd} mkdir -p "$upgradePath"
 fi
