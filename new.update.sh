@@ -412,12 +412,12 @@ DownloadAndInstallCasaOS() {
         popd
     fi
 
-    for SERVICE in "${CASA_SERVICES[@]}"; do
-        Show 2 "Stopping ${SERVICE}..."
+    # for SERVICE in "${CASA_SERVICES[@]}"; do
+    #     Show 2 "Stopping ${SERVICE}..."
 
-        systemctl stop "${SERVICE}" || Show 3 "Service ${SERVICE} does not exist."
+    #   systemctl stop "${SERVICE}" || Show 3 "Service ${SERVICE} does not exist."
 
-    done
+    # done
 
     MIGRATION_SCRIPT_DIR=$(realpath -e "${BUILD_DIR}"/scripts/migration/script.d || Show 1 "Failed to find migration script directory")
 
@@ -461,6 +461,7 @@ DownloadAndInstallCasaOS() {
     
     ## Special markings
 
+    Show 0 "CasaOS upgrade successfully"
    for SERVICE in "${CASA_SERVICES[@]}"; do
         Show 2 "restart ${SERVICE}..."
 
@@ -468,7 +469,6 @@ DownloadAndInstallCasaOS() {
 
     done
 
-    Show 0 "CasaOS upgrade successfully"
     
 }
 
