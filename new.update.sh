@@ -460,7 +460,7 @@ DownloadAndInstallCasaOS() {
     ${sudo_cmd} chmod +x $CASA_UNINSTALL_PATH
     
     ## Special markings
-    Show 0 "CasaOS upgrade successfully"
+
    for SERVICE in "${CASA_SERVICES[@]}"; do
         Show 2 "restart ${SERVICE}..."
 
@@ -468,7 +468,8 @@ DownloadAndInstallCasaOS() {
 
     done
 
-
+    Show 0 "CasaOS upgrade successfully"
+    
 }
 
 ###############################################################################
