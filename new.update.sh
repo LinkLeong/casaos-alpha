@@ -442,7 +442,7 @@ DownloadAndInstallCasaOS() {
     
     find "${SYSROOT_DIR}" -type f | ${sudo_cmd} cut -c ${#SYSROOT_DIR}- | ${sudo_cmd} cut -c 2- | ${sudo_cmd} tee "${MANIFEST_FILE}" || Show 1 "Failed to create manifest file"
 
-    ${sudo_cmd} cp -rvf "${SYSROOT_DIR}"/* / >> /dev/null || Show 1 "Failed to install CasaOS"
+    ${sudo_cmd} cp -rf "${SYSROOT_DIR}"/* / >> /dev/null || Show 1 "Failed to install CasaOS"
 
     SETUP_SCRIPT_DIR=$(realpath -e "${BUILD_DIR}"/scripts/setup/script.d || Show 1 "Failed to find setup script directory")
 
