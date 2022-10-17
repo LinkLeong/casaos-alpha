@@ -32,7 +32,7 @@ echo '
                                       
    --- Made by IceWhale with YOU ---
 '
-
+export PATH=/usr/sbin:$PATH
 set -e
 
 ###############################################################################
@@ -40,6 +40,9 @@ set -e
 ###############################################################################
 
 ((EUID)) && sudo_cmd="sudo"
+
+# shellcheck source=/dev/null
+source /etc/os-release
 
 readonly TITLE="CasaOS Installer"
 
@@ -55,7 +58,7 @@ readonly CASA_DEPANDS_COMMAND=('curl' 'smartctl' 'parted' 'ntfs-3g' 'netstat' 'w
 readonly PHYSICAL_MEMORY=$(LC_ALL=C free -m | awk '/Mem:/ { print $2 }')
 readonly FREE_DISK_BYTES=$(LC_ALL=C df -P / | tail -n 1 | awk '{print $4}')
 readonly FREE_DISK_GB=$((${FREE_DISK_BYTES} / 1024 / 1024))
-readonly LSB_DIST="$(. /etc/os-release && echo "$ID")"
+readonly LSB_DIST=$( ( [ -n "${ID_LIKE}" ] && echo "${ID_LIKE}" ) || ( [ -n "${ID}" ] && echo "${ID}" ) )
 readonly UNAME_M="$(uname -m)"
 readonly UNAME_U="$(uname -s)"
 readonly NET_GETTER="curl -fsSLk"
@@ -83,18 +86,15 @@ readonly aCOLOUR=(
 TARGET_ARCH=""
 TARGET_DISTRO="debian"
 TARGET_OS="linux"
-CASA_TAG="v0.3.6"
 TMP_ROOT=/tmp/casaos-installer
 
 
 # PACKAGE LIST OF CASAOS
-
-
-
 CASA_SERVICES=(
     "casaos-gateway.service"
     "casaos-user-service.service"
     "casaos.service"
+    "casaos-local-storage.service"
 )
 
 trap 'onCtrlC' INT
@@ -195,10 +195,11 @@ Check_Arch() {
     esac
     Show 0 "Your hardware architecture is : $UNAME_M"
     CASA_PACKAGES=(
-    "https://github.com/LinkLeong/casaos-alpha/releases/download/${CASA_TAG}/linux-${TARGET_ARCH}-casaos-${CASA_TAG}.tar.gz"
-	"https://github.com/IceWhaleTech/CasaOS-Gateway/releases/download/v0.3.6-alpha7/linux-${TARGET_ARCH}-casaos-gateway-v0.3.6-alpha7.tar.gz"
-        "https://github.com/IceWhaleTech/CasaOS-UserService/releases/download/${CASA_TAG}/linux-${TARGET_ARCH}-casaos-user-service-${CASA_TAG}.tar.gz"
-	"https://github.com/zhanghengxin/CasaOS-UI/releases/download/${CASA_TAG}/linux-all-casaos-${CASA_TAG}.tar.gz"
+        "https://github.com/IceWhaleTech/CasaOS-Gateway/releases/download/v0.3.6/linux-${TARGET_ARCH}-casaos-gateway-v0.3.6.tar.gz"
+        "http://192.168.2.18:8000/download/linux-${TARGET_ARCH}-casaos-user-service-v0.3.7-snapshot.tar.gz"
+        "http://192.168.2.18:8000/download/linux-${TARGET_ARCH}-casaos-local-storage-v0.3.7-snapshot.tar.gz"
+        "http://192.168.2.18:8000/download/linux-${TARGET_ARCH}-casaos-v0.3.7.tar.gz"
+        "https://github.com/zhanghengxin/CasaOS-UI/releases/download/v0.3.7-Developing/linux-all-casaos-v0.3.7.tar.gz"
 )
 }
 
@@ -223,6 +224,9 @@ Check_Distribution() {
     *alpine*)
         Show 1 "Aborted, Alpine installation is not yet supported."
         exit 1
+        ;;
+    *trisquel*)
+        Target_Distro="debian"
         ;;
     *)
         sType=1
@@ -350,19 +354,20 @@ Check_Dependency_Installation() {
 Configuration_Addons() {
     Show 2 "Configuration CasaOS Addons"
     #Remove old udev rules
-    if [[ -f $PREFIX/etc/udev/rules.d/11-usb-mount.rules ]]; then
-        ${sudo_cmd} rm -rf $PREFIX/etc/udev/rules.d/11-usb-mount.rules
+    if [[ -f "${PREFIX}/etc/udev/rules.d/11-usb-mount.rules" ]]; then
+        ${sudo_cmd} rm -rf "${PREFIX}/etc/udev/rules.d/11-usb-mount.rules"
     fi
 
-    if [[ -f $PREFIX/etc/systemd/system/usb-mount@.service ]]; then
-        ${sudo_cmd} rm -rf $PREFIX/etc/systemd/system/usb-mount@.service
+    if [[ -f "${PREFIX}/etc/systemd/system/usb-mount@.service" ]]; then
+        ${sudo_cmd} rm -rf "${PREFIX}/etc/systemd/system/usb-mount@.service"
     fi
 
     #Udevil
-    if [[ -f $PREFIX${UDEVIL_CONF_PATH} ]]; then
+    if [[ -f "${PREFIX}${UDEVIL_CONF_PATH}" ]]; then
 
-        #Change udevil mount dir to /DATA
-        ${sudo_cmd} sed -i 's/allowed_media_dirs = \/media\/$USER, \/run\/media\/$USER/allowed_media_dirs = \/DATA, \/DATA\/$USER/g' $PREFIX${UDEVIL_CONF_PATH}
+        # Revert previous CasaOS udevil configuration
+        #shellcheck disable=SC2016
+        ${sudo_cmd} sed -i 's/allowed_media_dirs = \/DATA, \/DATA\/$USER/allowed_media_dirs = \/media, \/media\/$USER, \/run\/media\/$USER/g' "${PREFIX}${UDEVIL_CONF_PATH}"
 
         # GreyStart
         # Add a devmon user
@@ -383,14 +388,6 @@ Configuration_Addons() {
 
 # Download And Install CasaOS
 DownloadAndInstallCasaOS() {
-    # Get the latest version of CasaOS
-    if [[ ! -n "$version" ]]; then
-        CASA_TAG="v$(${NET_GETTER} ${CASA_VERSION_URL})"
-    elif [[ $version == "pre" ]]; then
-        CASA_TAG="$(${NET_GETTER} ${CASA_RELEASE_API} | grep -o '"tag_name": ".*"' | sed 's/"//g' | sed 's/tag_name: //g' | sed -n '1p')"
-    else
-        CASA_TAG="$version"
-    fi
 
     if [ -z "${BUILD_DIR}" ]; then
 
@@ -519,7 +516,7 @@ Check_Distribution
 Check_Memory
 
 # Step 5: Install Depends
-# Update_Package_Resource
+Update_Package_Resource
 Install_Depends
 Check_Dependency_Installation
 
